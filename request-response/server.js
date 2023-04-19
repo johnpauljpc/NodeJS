@@ -8,15 +8,14 @@ server = http.createServer((req, res)=>{
 
     // Returning HTML pages
     res.setHeader('Content-Type', 'text/html')
-    fs.readFile('c./views/index.html', (err, data)=>{
+    fs.readFile('./views/index.html', (err, data)=>{
         if(err){
             console.log("something is wrong: ",err)
             res.write('some thing is wrong!')
             res.end()
         }
         else{
-            res.write(data)
-            res.end()
+            res.end(data)
         }
     })
 })
