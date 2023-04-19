@@ -8,7 +8,23 @@ server = http.createServer((req, res)=>{
 
     // Returning HTML pages
     res.setHeader('Content-Type', 'text/html')
-    fs.readFile('./views/index.html', (err, data)=>{
+    let path = './views/'
+
+    switch (req.url) {
+        case '/':
+            path += 'index.html'
+            break;
+        case '/about':
+            path += 'about-us.html'
+            break;
+        case '/contact':
+            path += "contact-page.html"
+            break;
+        default:
+            path +="404.html"
+            break;
+    }
+    fs.readFile(path, (err, data)=>{
         if(err){
             console.log("something is wrong: ",err)
             res.write('some thing is wrong!')
