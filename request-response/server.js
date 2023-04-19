@@ -19,9 +19,20 @@ server = http.createServer((req, res)=>{
             path += 'about-us.html'
             res.statusCode = 200;
             break;
+
+            case 'about-me':
+                res.statusCode = 301
+                res.setHeader('Location', '/about')
+                res.end()
+            break;
         case '/contact':
             path += "contact-page.html"
             res.statusCode = 200;
+            break;
+        case '/contact-us':
+            res.statusCode = 301
+            res.setHeader('Location', '/contact')
+            res.end()
             break;
         default:
             path +="404.html"
