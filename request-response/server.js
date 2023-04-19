@@ -13,15 +13,19 @@ server = http.createServer((req, res)=>{
     switch (req.url) {
         case '/':
             path += 'index.html'
+            res.statusCode = 200;
             break;
         case '/about':
             path += 'about-us.html'
+            res.statusCode = 200;
             break;
         case '/contact':
             path += "contact-page.html"
+            res.statusCode = 200;
             break;
         default:
             path +="404.html"
+            res.statusCode = 404;
             break;
     }
     fs.readFile(path, (err, data)=>{
