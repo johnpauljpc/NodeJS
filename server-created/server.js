@@ -6,10 +6,10 @@ server = http.createServer((req, res) =>{
     console.log(req.url, req.method)
     // set header content type
     
-    res.setHeader('content-type', 'text/html')
+    res.setHeader('content-type', 'text/plain')
 
-    res.write('<meta name="color-scheme" content="dark"></meta>')
-    res.write('<h3>Hello, Johnpaul-JP</h3>');
+   
+    res.write('Hello, Johnpaul-JP');
     res.end()
     
 });
