@@ -6,18 +6,8 @@
     <title>JP blog | <%= title %> </title>
 </head>
 <body>
-    <nav>
-        <div class="site-title">
-            <a href="/">JP blog</a>
-            <p>blog built with Express</p>
-        </div>
-
-        <ul>
-            <li><a href="/">Blogs</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/blogs/create">New post</a></li>
-        </ul>
-    </nav>
+    
+    <%- include('./partials/nav.ejs')%>
 
     <div class="create-content">
         <h2>Create blog post</h2>
@@ -33,5 +23,7 @@
             <button>Submit</button>
         </form>
     </div>
+
+    <%- include('./partials/footer.ejs')%>
 </body>
 </html>
