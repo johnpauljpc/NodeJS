@@ -12,19 +12,28 @@ app.listen(3000);
 app.get('/', (req, res) =>{
     // res.send('<h1> Hello Guys, I love Express</h1>')
     // res.sendFile('./views/index.html', {root: __dirname})
-    res.render('index')
+    const blogs = [
+        {title: "Post 1", 
+        snippet: "help me lord help me lord help me lord help me lord help me lord"
+        },
+
+        {title: "Post 2", 
+        snippet: "help me lord help me lord help me lord help me lord help me lord"
+        }
+    ]
+    res.render('index', {title: 'home', blogs})
 });
 
 app.get('/about', (req, res)=>{
-    res.render('about')
+    res.render('about', {title: 'about'})
 })
 
 app.get('/contact', (req, res)=>{
-    res.render('contact')
+    res.render('contact', {title: 'contact'})
 })
 
 app.get('/blogs/create/', (req, res)=>{
-    res.render('create-post')
+    res.render('create-post', {title: 'create post'})
 })
 
 // Redirects
@@ -39,5 +48,5 @@ app.get('/contact-us', (req, res) =>{
 
 // 404 page
 app.use((req, res)=>{
-    res.status(404).render('404')
+    res.status(404).render('404', {title: "404"})
 })
