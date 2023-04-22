@@ -1,4 +1,5 @@
 const express = require('express');
+var morgan = require('morgan')
 
 const app = express();
 
@@ -7,6 +8,11 @@ app.set('view engine', 'ejs')
 app.set('views', 'myviews')
 
 app.listen(3000);
+
+app.use(morgan('tiny'))
+// Static middleware
+app.use(express.static('static'))
+
 
 
 app.get('/', (req, res) =>{
