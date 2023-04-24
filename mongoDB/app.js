@@ -3,18 +3,18 @@ var morgan = require('morgan')
 const mongoose = require('mongoose')
 
 const app = express();
-
+ 
 // connect to mongodb
 dbURI = 'mongodb+srv://johnpaul:08109137270@cluster0.5zkdvda.mongodb.net/database1?retryWrites=true&w=majority'
 mongoose.connect(dbURI)
-.then((result) => console.log( 'conected to db'))
+.then((result) => app.listen(3000))
 .catch((err) => console.log(err))
 
 // register view engine
 app.set('view engine', 'ejs')
 app.set('views', 'myviews')
 
-app.listen(3000);
+
 
 app.use(morgan('tiny'))
 // Static middleware
