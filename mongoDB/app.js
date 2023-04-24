@@ -5,9 +5,10 @@ const mongoose = require('mongoose')
 const app = express();
  
 // connect to mongodb
-dbURI = 'mongodb+srv://johnpaul:08109137270@cluster0.5zkdvda.mongodb.net/database1?retryWrites=true&w=majority'
+dbURI = 'mongodb+srv://johnpaul:08109137270@cluster0.5zkdvda.mongodb.net/blogDB?retryWrites=true&w=majority'
 mongoose.connect(dbURI)
-.then((result) => app.listen(3000))
+.then((result) => app.listen(3000), console.log('db connected')
+)
 .catch((err) => console.log(err))
 
 // register view engine
