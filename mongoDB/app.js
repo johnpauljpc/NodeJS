@@ -23,56 +23,58 @@ app.use(morgan('tiny'))
 app.use(express.static('static'))
 
 
-app.get('/add-blog', (req, res)=>{
-    // creating an instance
-    const blog = new Blog({
-        title:"Third post",
-        snippet:"A vlidator of Christ's resurrection",
-        body:"Let my life be a validator of God's power. Let me work in the reality of His purpose and calling for me.."
+// app.get('/add-blog', (req, res)=>{
+//     // creating an instance
+//     const blog = new Blog({
+//         title:"Third post",
+//         snippet:"A vlidator of Christ's resurrection",
+//         body:"Let my life be a validator of God's power. Let me work in the reality of His purpose and calling for me.."
 
-    });
+//     });
 
-    blog.save()
-    .then((result) =>{
-        res.send(result)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-})
+//     blog.save()
+//     .then((result) =>{
+//         res.send(result)
+//     })
+//     .catch((err)=>{
+//         console.log(err)
+//     })
+// })
+
+// // Retrieve data from the database
+// app.get('/all-posts', (req, res)=>{
+//     Blog.find()
+//     .then((result)=>{
+//         res.send(result)
+//     })
+//     .catch((err)=>{
+//         console.log(err)
+
+//     })
+// })
+
+// // find single record
+// app.get('/single-record', (req, res)=>{
+//     Blog.findById('6446e12141186af294767812')
+//     .then((result)=>{
+//         res.send(result)
+//     })
+//     .catch((err)=>{
+//         console.log(err)
+//     })
+// })
 
 app.get('/', (req, res) =>{
     // res.send('<h1> Hello Guys, I love Express</h1>')
     // res.sendFile('./views/index.html', {root: __dirname})
-    const blogs = [
-        {title: "Post 1", 
-        snippet: "help me lord help me lord help me lord help me lord help me lord"
-        },
-
-        {title: "Post 2", 
-        snippet: "help me lord help me lord help me lord help me lord help me lord"
-        }
-    ]
-    res.render('index', {title: 'home', blogs})
+    
+    res.redirect('/blogs')
 });
 
-// Retrieve data from the database
-app.get('/all-posts', (req, res)=>{
-    Blog.find()
+app.get('/blogs', (req, res)=>{
+    Blog.find().sort({createdAt: -1})
     .then((result)=>{
-        res.send(result)
-    })
-    .catch((err)=>{
-        console.log(err)
-
-    })
-})
-
-// find single record
-app.get('/single-record', (req, res)=>{
-    Blog.findById('6446e12141186af294767812')
-    .then((result)=>{
-        res.send(result)
+        res.render('index',{title:'All Blogs', blogs:result} )
     })
     .catch((err)=>{
         console.log(err)
