@@ -1,6 +1,7 @@
 const express = require('express');
 var morgan = require('morgan')
 const mongoose = require('mongoose')
+const Blog = require('./models/blog')
 
 const app = express();
  
@@ -22,6 +23,23 @@ app.use(morgan('tiny'))
 app.use(express.static('static'))
 
 
+app.get('/add-blog', (req, res)=>{
+    // creating an instance
+    const blog = new Blog({
+        title:"Third post",
+        snippet:"A vlidator of Christ's resurrection",
+        body:"Let my life be a validator of God's power. Let me work in the reality of His purpose and calling for me.."
+
+    });
+
+    blog.save()
+    .then((result) =>{
+        res.send(result)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+})
 
 app.get('/', (req, res) =>{
     // res.send('<h1> Hello Guys, I love Express</h1>')
@@ -37,6 +55,29 @@ app.get('/', (req, res) =>{
     ]
     res.render('index', {title: 'home', blogs})
 });
+
+// Retrieve data from the database
+app.get('/all-posts', (req, res)=>{
+    Blog.find()
+    .then((result)=>{
+        res.send(result)
+    })
+    .catch((err)=>{
+        console.log(err)
+
+    })
+})
+
+// find single record
+app.get('/single-record', (req, res)=>{
+    Blog.findById('6446e12141186af294767812')
+    .then((result)=>{
+        res.send(result)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+})
 
 app.get('/about', (req, res)=>{
     res.render('about', {title: 'about'})
