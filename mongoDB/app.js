@@ -76,8 +76,8 @@ app.get('/blogs', (req, res)=>{
     .then((result)=>{
         res.render('index',{title:'All Blogs', blogs:result} )
     })
-    .catch((err)=>{
-        console.log(err)
+    .catch((error)=>{
+        console.log(error)
     })
 })
 
