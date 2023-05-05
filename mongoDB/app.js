@@ -21,6 +21,7 @@ app.set('views', 'myviews')
 app.use(morgan('tiny'))
 // Static middleware
 app.use(express.static('static'))
+app.use(express.urlencoded({extended : true}))
 
 
 // app.get('/add-blog', (req, res)=>{
@@ -79,6 +80,19 @@ app.get('/blogs', (req, res)=>{
     .catch((error)=>{
         console.log(error)
     })
+})
+
+app.post('/blogs', (req, res)=>{
+    const blog = new Blog(req.body)
+
+    blog.save()
+    .then((result) =>{
+        res.redirect('/blogs')
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+
 })
 
 app.get('/about', (req, res)=>{
