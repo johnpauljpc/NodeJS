@@ -94,6 +94,19 @@ app.post('/blogs', (req, res)=>{
     })
 
 })
+// get single record
+app.get('/blogs/:id', (req, res)=>{
+    const id = req.params.id
+    console.log('>>>>   ' + id)
+    Blog.findById(id)
+    .then(result =>{
+        res.render('details', {blog: result, title:"Blog Detail"})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+
+})
 
 app.get('/about', (req, res)=>{
     res.render('about', {title: 'about'})
