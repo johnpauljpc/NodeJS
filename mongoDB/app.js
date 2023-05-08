@@ -72,6 +72,8 @@ app.get('/', (req, res) =>{
     res.redirect('/blogs')
 });
 
+
+
 app.get('/blogs', (req, res)=>{
     Blog.find().sort({createdAt: -1})
     .then((result)=>{
@@ -94,6 +96,8 @@ app.post('/blogs', (req, res)=>{
     })
 
 })
+
+
 // get single record
 app.get('/blogs/:id', (req, res)=>{
     const id = req.params.id
@@ -127,8 +131,10 @@ app.get('/contact', (req, res)=>{
     res.render('contact', {title: 'contact'})
 })
 
-app.get('/blogs/create/', (req, res)=>{
-    res.render('create-post', {title: 'create post'})
+
+
+app.get('/create/post', (req, res)=>{
+    res.render('createPost', {title: 'create post'})
 })
 
 // Redirects
