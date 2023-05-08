@@ -1,7 +1,8 @@
 const express = require('express');
-var morgan = require('morgan')
+var morgan = require ('morgan')
 const mongoose = require('mongoose')
-const Blog = require('./models/blog')
+
+const blogRoutes = require('./routes/blogRoutes')
 
 const app = express();
  
@@ -24,104 +25,6 @@ app.use(express.static('static'))
 app.use(express.urlencoded({extended : true}))
 
 
-// app.get('/add-blog', (req, res)=>{
-//     // creating an instance
-//     const blog = new Blog({
-//         title:"Third post",
-//         snippet:"A vlidator of Christ's resurrection",
-//         body:"Let my life be a validator of God's power. Let me work in the reality of His purpose and calling for me.."
-
-//     });
-
-//     blog.save()
-//     .then((result) =>{
-//         res.send(result)
-//     })
-//     .catch((err)=>{
-//         console.log(err)
-//     })
-// })
-
-// // Retrieve data from the database
-// app.get('/all-posts', (req, res)=>{
-//     Blog.find()
-//     .then((result)=>{
-//         res.send(result)
-//     })
-//     .catch((err)=>{
-//         console.log(err)
-
-//     })
-// })
-
-// // find single record
-// app.get('/single-record', (req, res)=>{
-//     Blog.findById('6446e12141186af294767812')
-//     .then((result)=>{
-//         res.send(result)
-//     })
-//     .catch((err)=>{
-//         console.log(err)
-//     })
-// })
-
-app.get('/', (req, res) =>{
-    // res.send('<h1> Hello Guys, I love Express</h1>')
-    // res.sendFile('./views/index.html', {root: __dirname})
-    
-    res.redirect('/blogs')
-});
-
-
-
-app.get('/blogs', (req, res)=>{
-    Blog.find().sort({createdAt: -1})
-    .then((result)=>{
-        res.render('index',{title:'All Blogs', blogs:result} )
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
-})
-
-app.post('/blogs', (req, res)=>{
-    const blog = new Blog(req.body)
-
-    blog.save()
-    .then((result) =>{
-        res.redirect('/blogs')
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
-
-})
-
-
-// get single record
-app.get('/blogs/:id', (req, res)=>{
-    const id = req.params.id
-    console.log('>>>>   ' + id)
-    Blog.findById(id)
-    .then(result =>{
-        res.render('details', {blog: result, title:"Blog Detail"})
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-
-})
-
-app.delete('/blogs/:id', (req, res) =>{
-    const id = req.params.id
-    Blog.findByIdAndDelete(id)
-    .then(result =>{
-        res.json({redirect:'/blogs'})
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-})
 
 app.get('/about', (req, res)=>{
     res.render('about', {title: 'about'})
@@ -146,6 +49,15 @@ app.get('/contact-us', (req, res) =>{
     res.redirect('/contact')
 })
 
+
+
+// BLOG Routes
+app.get('/', (req, res) =>{
+    
+    res.redirect('/blogs')
+});
+
+app.use('/blogs', blogRoutes)
 
 // 404 page
 app.use((req, res)=>{
