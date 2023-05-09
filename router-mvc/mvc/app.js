@@ -2,7 +2,9 @@ const express = require('express');
 var morgan = require ('morgan')
 const mongoose = require('mongoose')
 
-const blogRoutes = require('./routes/blogRoutes')
+const blogController = require('./controllers/blogController')
+
+// const blogRoutes = require('./routes/blogRoutes')
 
 const app = express();
  
@@ -25,20 +27,20 @@ app.use(express.static('static'))
 app.use(express.urlencoded({extended : true}))
 
 
-
-app.get('/about', (req, res)=>{
-    res.render('about', {title: 'about'})
-})
-
-app.get('/contact', (req, res)=>{
-    res.render('contact', {title: 'contact'})
-})
+app.get('/blogs/:id', blogController.blog_detail)
+app.get('/about', blogController.about)
+app.get('/contact', blogController.contact)
+app.get('/create/post', blogController.blog_create_get)
+app.get('/', blogController.blog_index)
+app.post('/', blogController.blog_create_post)
 
 
+app.delete('/blogs/:id', blogController.blog_delete)
 
-app.get('/create/post', (req, res)=>{
-    res.render('createPost', {title: 'create post'})
-})
+
+
+
+
 
 // Redirects
 app.get('/about-me', (req, res) =>{
@@ -57,7 +59,7 @@ app.get('/', (req, res) =>{
     res.redirect('/blogs')
 });
 
-app.use('/blogs', blogRoutes)
+// app.use('/blogs', blogRoutes)
 
 // 404 page
 app.use((req, res)=>{
